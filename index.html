@@ -1,31 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>League of Legends Champions | SEA Catalog</title>
+    <meta name="description" content="Explore the mystical world of League of Legends champions" />
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script type="module" src="scripts/scripts.js" defer></script>
   </head>
-
   <body>
-    <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
-    </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
+    <!-- Header -->
+    <!-- <header class="header-container">
+      <nav class="navbar">
+        <div class="logo">LEAGUE OF LEGENDS</div> -->
+        <!-- <ul class="nav-links">
+          <li><a href="#champions" class="active">CHAMPIONS</a></li>
+          <li><a href="#regions">REGIONS</a></li>
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+        </ul> -->
+      <!-- </nav>
+    </header> -->
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1>LEAGUE OF LEGENDS</h1>
+        <p>DISCOVER THE CHAMPIONS OF RUNETERRA</p>
+        <a href="#champions" class="hero-button">EXPLORE</a>
       </div>
-    </div>
-    <div class="footer">
-      <button onclick="quoteAlert();">Get A Quote!</button>
-      <button onclick="removeLastCard();">Remove A Card!</button>
-    </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="body-container">
+      <!-- Champions Section -->
+      <section id="champions" class="champion-container">
+        <h1 class="champion-title">CHAMPIONS</h1>
+        <p class="champion-subtitle">With over 140 champions, you'll find the perfect match for your playstyle. Master one, or master them all.</p>
+        
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+          <div class="search-container">
+            <input type="text" id="champion-search" placeholder="Search champions...">
+          </div>
+          <div class="filter-container">
+            <div class="dropdown-filter">
+              <button class="dropdown-toggle">Filter <span class="dropdown-arrow">▼</span></button>
+              <div class="dropdown-content">
+                <div class="checkbox-group">
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="role-assassin" value="Assassin">
+                    <label for="role-assassin">Assassin</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="role-fighter" value="Fighter">
+                    <label for="role-fighter">Fighter</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="role-mage" value="Fage">
+                    <label for="role-mage">Mage</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="role-adc" value="Adc">
+                    <label for="role-adc">Adc</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="role-support" value="Support">
+                    <label for="role-support">Support</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="role-tank" value="Tank">
+                    <label for="role-tank">Tank</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cards Section -->
+      <section class="cards-section">
+        <div class="card-container">
+          <!-- <div class="card">
+            <div class="card-image">
+              <img src="" alt="" />
+            </div>
+            <div class="card-content">
+              <h2></h2>
+              <p class="champion-title"></p>
+              <div class="champion-tags">
+                <span class="tag"></span>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-container">
+      <div class="footer-content">
+        <div class="footer-copyright">
+          <p>&copy; 2025 SEA Catalog by Nhan Tri Danh. All rights reserved.</p>
+          <p>This project is not affiliated with Riot Games.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
