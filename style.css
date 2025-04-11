@@ -84,6 +84,8 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
 }
 
 /* Hero Section */
+/* Fix z-index layering for video background */
+/* Hero Section - Fixed Version */
 .hero-section {
   position: relative;
   height: 100vh;
@@ -101,7 +103,14 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 0;
+}
+
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative; 
 }
 
 .video-background::after {
@@ -111,27 +120,18 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Darker overlay for better text readability */
-  z-index: 1;
-}
-
-.video-background video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* This is crucial for proper sizing */
-  position: absolute;
-  top: 0;
-  left: 0;
+  background: rgba(0, 0, 0, 0.4); 
+  backdrop-filter: blur(1px); 
+  -webkit-backdrop-filter: blur(5px); 
+  z-index: 1; 
 }
 
 .hero-content {
   position: relative;
-  z-index: 2; /* Ensures content displays above the video */
+  z-index: 2;
   max-width: 800px;
   padding: 0 2rem;
 }
-
-
 .hero-content h1 {
   font-size: 4rem;
   margin-bottom: 1rem;
