@@ -1,11 +1,14 @@
 import { champions } from "./data.js";
-import { tagFilter } from "./filters.js";
+import { sortAtoZ, sortZtoA, sortEasyToHard, sortHardToEasy } from "./sorts.js";
 
 // DOM Elements
 const cardContainer = document.querySelector('.card-container');
 const dropdownToggle = document.querySelector('.dropdown-toggle');
 const dropdownContent = document.querySelector('.dropdown-content');
 const roleCheckboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]')
+const sortRadios = document.querySelectorAll('.radio-item input[type="radio"]');
+let currentFilteredChampions = [...champions]; 
+let currentSortType = 'default';
 
 function addCards(championsArray){
   cardContainer.innerHTML = '';
@@ -45,13 +48,39 @@ function addCards(championsArray){
 
 }
 
-function applyFilter(checkedTag) {
-  let filteredCards = tagFilter(checkedTag);
+function tagFilter(checkedTag) {
+    if (checkedTag.length == 0) {
+        return champions
+    }
 
-  cardContainer.innerHTML = '';
-  addCards(filteredCards);
+    let filteredCards = []
+    for(let i = 0; i < champions.length; i++) {
+        const champion = champions[i]
+        let count = 0;
+        checkedTag.forEach(tag => {
+            if(champion.tag.includes(tag)) {
+                count += 1;
+                if(count == checkedTag.length){
+                    filteredCards.push(champion);
+                }
+            }
+        });
+    }
+    return filteredCards;
 }
 
+function applyFilter(checkedTag) {
+  currentFilteredChampions = tagFilter(checkedTag);
+
+  cardContainer.innerHTML = '';
+
+  if (currentSortType !== 'default') {
+    sortChampions(currentSortType);
+  } else {
+    // Otherwise just show the filtered champions
+    addCards(currentFilteredChampions);
+  }
+}
 
 function setupDropdownToggle() {
   // Toggle dropdown
@@ -74,6 +103,27 @@ function setupDropdownToggle() {
   });
 }
 
+function setupSortDropdown() {
+  const sortToggle = document.querySelector('.sort-container .dropdown-toggle');
+  const sortContent = document.querySelector('.sort-container .dropdown-content');
+  
+  sortToggle.addEventListener('click', function() {
+    sortContent.classList.toggle('show');
+    sortToggle.classList.toggle('active');
+  });
+  
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('.sort-container .dropdown-filter')) {
+      sortContent.classList.remove('show');
+      sortToggle.classList.remove('active');
+    }
+  });
+  
+  sortContent.addEventListener('click', function(event) {
+    event.stopPropagation();
+  });
+}
+
 function setupFilterListeners() {
   roleCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
@@ -91,10 +141,45 @@ function setupFilterListeners() {
   })
 }
 
+function sortChampions(type) {
+  let sortedChampions = [...currentFilteredChampions];
+  
+  switch(type) {
+    case 'az':
+      sortedChampions = sortAtoZ(sortedChampions);
+      break;
+    case 'za':
+      sortedChampions = sortZtoA(sortedChampions);
+      break;
+    case 'eh':
+      sortedChampions = sortEasyToHard(sortedChampions);
+      break;
+    case 'he':
+      sortedChampions = sortHardToEasy(sortedChampions);
+      break;
+    default:
+      break;
+  }
+  addCards(sortedChampions)
+}
+
+function setupSortListeners() {
+  sortRadios.forEach(sortRadio => {
+    sortRadio.addEventListener('change', function() {
+      if(this.checked) {
+        currentSortType = this.value;
+        sortChampions(this.value)
+      }
+    })
+  })
+}
+
 
 function init() {
   addCards(champions);
   setupDropdownToggle();
+  setupSortDropdown();
+  setupSortListeners();
   setupFilterListeners();
 }
 

@@ -27,6 +27,14 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
+      <div class="video-background">
+        <video autoplay loop muted playsinline>
+          <source src="asset/background video.mp4" type="video/mp4">
+          <!-- Fallback message if video doesn't load -->
+          Your browser does not support the video tag.
+        </video>
+        <!-- This provides a dark overlay for better text visibility -->
+      </div>
       <div class="hero-content">
         <h1>LEAGUE OF LEGENDS</h1>
         <p>DISCOVER THE CHAMPIONS OF RUNETERRA</p>
@@ -60,7 +68,7 @@
                     <label for="role-fighter">Fighter</label>
                   </div>
                   <div class="checkbox-item">
-                    <input type="checkbox" id="role-mage" value="Fage">
+                    <input type="checkbox" id="role-mage" value="Mage">
                     <label for="role-mage">Mage</label>
                   </div>
                   <div class="checkbox-item">
@@ -79,24 +87,42 @@
               </div>
             </div>
           </div>
+          <div class="sort-container">
+            <div class="dropdown-filter">
+              <button class="dropdown-toggle">Sort <span class="dropdown-arrow">▼</span></button>
+              <div class="dropdown-content">
+                <div class="radio-group">
+                  <div class="radio-item">
+                    <input type="radio" id="sort-default" name="sort-option" value="default" checked>
+                    <label for="sort-default">Default</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" id="sort-az" name="sort-option" value="az">
+                    <label for="sort-az">A to Z</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" id="sort-za" name="sort-option" value="za">
+                    <label for="sort-za">Z to A</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" id="sort-eh" name="sort-option" value="eh">
+                    <label for="sort-eh">Easy to Hard</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" id="sort-he" name="sort-option" value="he">
+                    <label for="sort-he">Hard to Easy </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Cards Section -->
       <section class="cards-section">
         <div class="card-container">
-          <!-- <div class="card">
-            <div class="card-image">
-              <img src="" alt="" />
-            </div>
-            <div class="card-content">
-              <h2></h2>
-              <p class="champion-title"></p>
-              <div class="champion-tags">
-                <span class="tag"></span>
-              </div>
-            </div>
-          </div> -->
+          
         </div>
       </section>
     </main>
