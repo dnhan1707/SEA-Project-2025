@@ -459,8 +459,8 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr); /* Exactly 2 columns */
+  gap: 2.5rem;
 }
 
 .card {
@@ -469,15 +469,18 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
-  height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
+  height: 100%; /* Ensure the card has height */
 }
 
 .card-image {
-  height: 220px;
+  width: 280px; /* Fixed width */
+  height: 100%; /* Use full height of card */
   overflow: hidden;
   position: relative;
+  flex-shrink: 0; /* Prevents shrinking */
+  background-color: #141414; /* Fallback color if image is loading or missing */
 }
 
 .card-image::before {
@@ -487,14 +490,27 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* Reversed direction */
   z-index: 1;
+}
+
+.card-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(30, 30, 40, 0.2), rgba(25, 25, 35, 0.2));
+  z-index: 2;
+  pointer-events: none;
 }
 
 .card img {
   width: 100%;
-  height: 100%;
+  height: 100%; /* Ensure image fills container */
   object-fit: cover;
+  object-position: center;
   transition: transform 0.5s;
 }
 
@@ -503,7 +519,7 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem; /* More consistent gap between all sections */
 }
 
 .card h2 {
@@ -521,13 +537,59 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   text-shadow: none;
 }
 
+.champion-description {
+  font-family: 'Georgia', serif; /* More elegant serif font */
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #b8a88a; /* Antique parchment color instead of plain gray */
+  font-style: italic;
+  text-align: left;
+  max-height: 6.5em;
+  position: relative;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0;
+  border-left: 2px solid rgba(200, 155, 60, 0.2); /* Subtle golden border */
+  padding-left: 0.8rem; /* Add space for the border */
+  letter-spacing: 0.02em; /* Slight letter spacing for readability */
+  flex-grow: 1;
+}
+
+/* Add a subtle fade effect at the bottom */
+.champion-description::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  pointer-events: none;
+}
+
+/* Add ornamental quotes to the beginning */
+.champion-description::before {
+  content: '"';
+  position: absolute;
+  left: 0.2rem;
+  top: -0.2rem;
+  font-size: 1.5rem;
+  color: rgba(200, 155, 60, 0.5);
+  font-family: 'Georgia', serif;
+}
+
+
 .champion-info {
   display: flex;
-  flex-direction: column;  
-  gap: 0.8rem;
-  margin-top: 0.8rem;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: auto; 
+  padding-top: 0.5rem; 
+  border-top: 1px solid rgba(200, 155, 60, 0.2); 
 }
+
+.champion-info::after {
+  display: none; /* Remove this element to prevent extra space */
+}
+
 
 .difficulty {
   display: inline-flex;
@@ -618,6 +680,18 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   gap: 0.3rem;
 }
 
+.card-header {
+  margin-bottom: 0.3rem; /* Reduce space after header */
+}
+
+.card-header h2 {
+  margin: 0 0 0.2rem 0; /* Tighten spacing between title and subtitle */
+}
+
+.card-header p.champion-title {
+  margin: 0;
+}
+
 .badge {
   position: absolute;
   top: 10px;
@@ -651,7 +725,7 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
 }
 
 .card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px) scale(1.02);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -787,4 +861,36 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   /* .footer-links ul {
     justify-content: center;
   } */
+}
+
+@media (max-width: 1200px) {
+  .card-container {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column; /* Stack on mobile */
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    position: relative;
+  }
+  
+  .card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  
+  .card-image::before {
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%);
+  }
 }

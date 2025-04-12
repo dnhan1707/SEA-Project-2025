@@ -5,8 +5,10 @@ import { sortAtoZ, sortZtoA, sortEasyToHard, sortHardToEasy } from "./sorts.js";
 const cardContainer = document.querySelector('.card-container');
 const dropdownToggle = document.querySelector('.dropdown-toggle');
 const dropdownContent = document.querySelector('.dropdown-content');
-const roleCheckboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]')
+const roleCheckboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
 const sortRadios = document.querySelectorAll('.radio-item input[type="radio"]');
+const searchInput = document.querySelector('.search-container input[type="text"]');
+
 let currentFilteredChampions = [...champions]; 
 let currentSortType = 'default';
 
@@ -31,8 +33,15 @@ function addCards(championsArray){
           ${champion.bestchoice ? '<span class="badge">Recommended</span>' : ''}
         </div>
         <div class="card-content">
-          <h2>${champion.champName.toUpperCase()}</h2>
-          <p class="champion-title">${champion.subtitle}</p>
+          <div class="card-header">
+            <h2>${champion.champName.toUpperCase()}</h2>
+            <p class="champion-title">${champion.subtitle}</p>
+          </div>
+          
+          <div class="champion-description">
+            ${champion.description || 'This champion stalks the battlefield looking for unsuspecting victims. With a mix of cunning and raw power, they can turn the tide of any fight.'}
+          </div>
+          
           <div class="champion-info">
             <span class="difficulty ${champion.difficulty.toLowerCase()}">${champion.difficulty}</span>
             <div class="champion-tags">
