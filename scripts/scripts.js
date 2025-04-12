@@ -255,6 +255,53 @@ function setUpAddButtonListener() {
   modalContent.addEventListener('click', function(event) {
     event.stopPropagation();
   });
+
+  addChampionForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('champ-name').value;
+    let subtitle = document.getElementById('champ-subtitle').value;
+    if(subtitle == "") {
+      subtitle = "The champion"
+    }
+    let imgUrl = document.getElementById('champ-img').value;
+    if(imgUrl == "") {
+      imgUrl = "asset/backup.png"
+    }
+    let description = document.getElementById('champ-description').value;
+    if(description == "") {
+      description = "A new power is born"
+    }
+    const difficultyRadio = document.querySelector('input[name="difficulty"]:checked')
+    const difficulty = difficultyRadio ? difficultyRadio.value : 'Moderate';
+
+    const tagCheckboxes = document.querySelectorAll('.tag-options input[type="checkbox"]:checked');
+    let tags = [];
+    tagCheckboxes.forEach(checkBox => {
+      tags.push(checkBox.value);
+    });
+
+    const recommended = document.getElementById('champ-recommended').checked;
+    const newChampion = {
+      champName: name,
+      subtitle: subtitle,
+      imgUrl: imgUrl,
+      description: description,
+      difficulty: difficulty,
+      tag: tags,
+      bestchoice: recommended
+    };
+
+    champions.push(newChampion);
+    currentFilteredChampions = [...champions];
+    addCards(champions)
+
+    modal.style.display = 'none';
+    unlockScroll();
+    addChampionForm.reset();
+    console.log('Champion added:', newChampion);
+
+  })
 }
 function init() {
   addCards(champions);
