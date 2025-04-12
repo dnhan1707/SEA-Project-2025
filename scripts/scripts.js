@@ -13,9 +13,16 @@ const modal = document.getElementById('add-champion-modal');
 const closeModal = document.querySelector('.close-modal');
 const cancelBtn = document.querySelector('.cancel-btn');
 const addChampionForm = document.getElementById('add-champion-form');
+const editModal = document.getElementById('edit-champion-modal')
+const editCloseBtn = document.querySelector('#edit-champion-modal .close-modal');
+const editCancelBtn = document.querySelector('#edit-champion-modal .cancel-btn');
+const editChampionForm = document.getElementById('edit-champion-form');
 
 let currentFilteredChampions = [...champions]; 
 let currentSortType = 'default';
+let championToEdit = null;
+let id = null;
+
 
 function addCards(championsArray){
   cardContainer.innerHTML = '';
@@ -65,7 +72,6 @@ function addCards(championsArray){
     allCardsHtml += cardHtml;
   });
   cardContainer.innerHTML = allCardsHtml;
-
 }
 
 function tagFilter(checkedTag) {
@@ -97,19 +103,16 @@ function applyFilter(checkedTag) {
   if (currentSortType !== 'default') {
     sortChampions(currentSortType);
   } else {
-    // Otherwise just show the filtered champions
     addCards(currentFilteredChampions);
   }
 }
 
 function setupDropdownToggle() {
-  // Toggle dropdown
   dropdownToggle.addEventListener('click', function() {
     dropdownContent.classList.toggle('show');
     dropdownToggle.classList.toggle('active');
   });
 
-  // Close dropdown when clicking outside
   document.addEventListener('click', function(event) {
     if (!event.target.closest('.dropdown-filter')) {
       dropdownContent.classList.remove('show');
@@ -117,7 +120,6 @@ function setupDropdownToggle() {
     }
   });
 
-  // Prevent dropdown from closing when clicking inside
   dropdownContent.addEventListener('click', function(event) {
     event.stopPropagation();
   });
@@ -148,7 +150,6 @@ function setupFilterListeners() {
   roleCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
   
-        // Get all checked tag
         let checkedTag = [];
         for(let i = 0; i < roleCheckboxes.length; i++){
           const checkBox = roleCheckboxes[i];
@@ -209,7 +210,7 @@ function setupSearchListeners() {
 
 }
 
-function setUpAddButtonListener() {
+function setupAddButtonListener() {
   let scrollPosition;
 
   function lockScroll() {
@@ -308,14 +309,163 @@ function setUpAddButtonListener() {
   })
 }
 
+function setupEditButtonListeners() {
+  let scrollPosition;
+
+  function lockScroll() {
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = '100%';
+  }
+
+  function unlockScroll() {
+    // Remove styles from body
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    
+    // Restore scroll position
+    window.scrollTo(0, scrollPosition);
+  }
+
+  editCloseBtn.addEventListener('click', function() {
+    editModal.style.display = 'none';
+    unlockScroll();
+  });
+
+  editCancelBtn.addEventListener('click', function() {
+    editModal.style.display = 'none';
+    unlockScroll();
+  });
+
+  window.addEventListener('click', function(event) {
+    if (event.target === editModal) {
+      editModal.style.display = 'none';
+      unlockScroll();
+    }
+  });
+
+  const editModalContent = document.querySelector('#edit-champion-modal .modal-content');
+    editModalContent.addEventListener('click', function(event) {
+      event.stopPropagation();
+  });
+
+  editChampionForm.addEventListener('submit', function(event){
+    event.preventDefault();
+
+    if (!championToEdit) {
+      console.error('No champion selected for editing');
+      return; 
+    }
+  
+    // Get values with fallbacks
+    let name = document.getElementById('edit-champ-name').value;
+    if(name == "") {
+      name = championToEdit.champName;
+    }
+  
+    let subtitle = document.getElementById('edit-champ-subtitle').value;
+    if(subtitle == "") {
+      subtitle = championToEdit.subtitle;
+    }
+    
+    let imgUrl = document.getElementById('edit-champ-img').value;
+    if(imgUrl == "") {
+      imgUrl = championToEdit.imgUrl;
+    }
+    
+    let description = document.getElementById('edit-champ-description').value;
+    if(description == "") {
+      description = championToEdit.description;
+    }
+    
+    const difficultyRadio = document.querySelector('#edit-champion-modal input[name="edit-difficulty"]:checked');
+    const difficulty = difficultyRadio ? difficultyRadio.value : championToEdit.difficulty;
+  
+    let tagCheckboxes = document.querySelectorAll('#edit-champion-modal .tag-options input[type="checkbox"]:checked');
+    let tags = [];
+    tagCheckboxes.forEach(checkBox => {
+      tags.push(checkBox.value);
+    });
+    
+    if (tags.length < 1 && championToEdit.tag) {
+      tags = championToEdit.tag;
+    }
+  
+    const recommended = document.getElementById('edit-champ-recommended').checked;
+    const edittedChampion = {
+      champName: name,
+      subtitle: subtitle,
+      imgUrl: imgUrl,
+      description: description,
+      difficulty: difficulty,
+      tag: tags,
+      bestchoice: recommended
+    };
+
+    console.log('Editted version: ', edittedChampion)
+  
+    if (id !== null && id >= 0 && id < champions.length) {
+      champions[id] = edittedChampion;
+      currentFilteredChampions = [...champions];
+      addCards(currentFilteredChampions);
+    } else {
+      console.error('Invalid champion index for updating');
+    }
+  
+    editModal.style.display = 'none';
+    unlockScroll();
+    editChampionForm.reset();
+  })
+
+  const editBtn = document.querySelectorAll('.edit-btn');
+  editBtn.forEach(btn => {
+    btn.addEventListener('click', function(event) {
+      event.stopPropagation();
+      const champName = btn.getAttribute('data-champion');
+      for (let i = 0; i < champions.length; i++) {
+        if (champions[i].champName.toLowerCase() === champName.toLowerCase()) {
+          championToEdit = champions[i];
+          id = i;
+          break;
+        }
+      }
+      document.getElementById('edit-champ-name').value = championToEdit.champName;
+      document.getElementById('edit-champ-subtitle').value = championToEdit.subtitle;
+      document.getElementById('edit-champ-img').value = championToEdit.imgUrl;
+      document.getElementById('edit-champ-description').value = championToEdit.description;
+
+
+      const difficulty = championToEdit.difficulty;
+      document.querySelector(`#edit-champion-modal input[value="${difficulty}"]`).checked = true;
+      
+      const tags = championToEdit.tag;
+      document.querySelectorAll('#edit-champion-modal .tag-options input[type="checkbox"]').forEach(checkBox => {
+        checkBox.checked = tags.includes(checkBox.value);
+      })
+
+      const isRecommended = championToEdit.bestchoice;
+      document.getElementById('edit-champ-recommended').checked = isRecommended;
+
+      editModal.style.display = 'block';
+      lockScroll();
+    })
+  })
+}
+
 function init() {
   addCards(champions);
+  setupEditButtonListeners();
   setupDropdownToggle();
   setupSortDropdown();
   setupSortListeners();
   setupFilterListeners();
   setupSearchListeners();
-  setUpAddButtonListener();
+  setupAddButtonListener();
 }
 
 

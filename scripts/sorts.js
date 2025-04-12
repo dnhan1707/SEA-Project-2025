@@ -60,8 +60,6 @@ export function sortEasyToHard(champions) {
         'Moderate': 2,
         'Easy': 1
     }
-
-    // Selection sort
     for(let j = 0; j < champions.length; j++) {
         for(let k = j + 1; k < champions.length; k++) {
             if(difficultyMap[champions[j].difficulty] > difficultyMap[champions[k].difficulty]) {
@@ -82,7 +80,6 @@ export function sortHardToEasy(champions) {
         'Easy': 1
     }
 
-    // Selection sort
     for(let j = 0; j < champions.length; j++) {
         for(let k = j + 1; k < champions.length; k++) {
             if(difficultyMap[champions[j].difficulty] < difficultyMap[champions[k].difficulty]) {

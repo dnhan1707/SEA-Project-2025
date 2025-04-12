@@ -204,6 +204,98 @@
         </div>
       </div>
       
+      <!-- Edit card modal -->
+      <div class="modal" id="edit-champion-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>EDIT CHAMPION</h2>
+            <span class="close-modal">&times;</span>
+          </div>
+          <div class="modal-body">
+            <form id="edit-champion-form">
+              <div class="form-group">
+                <label for="edit-champ-name">Champion Name</label>
+                <input type="text" id="edit-champ-name" placeholder="e.g. Aatrox">
+              </div>
+              
+              <div class="form-group">
+                <label for="edit-champ-subtitle">Title</label>
+                <input type="text" id="edit-champ-subtitle" placeholder="e.g. The Darkin Blade">
+              </div>
+              
+              <div class="form-group">
+                <label for="edit-champ-img">Image URL</label>
+                <input type="text" id="edit-champ-img" placeholder="image link">
+              </div>
+              
+              <div class="form-group">
+                <label for="edit-champ-description">Description</label>
+                <textarea id="edit-champ-description" rows="4" placeholder="Enter champion lore and description..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label>Difficulty</label>
+                <div class="radio-group difficulty-options">
+                  <div class="radio-item">
+                    <input type="radio" id="edit-diff-easy" name="edit-difficulty" value="Easy">
+                    <label for="edit-diff-easy">Easy</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" id="edit-diff-moderate" name="edit-difficulty" value="Moderate" checked>
+                    <label for="edit-diff-moderate">Moderate</label>
+                  </div>
+                  <div class="radio-item">
+                    <input type="radio" id="edit-diff-hard" name="edit-difficulty" value="Hard">
+                    <label for="edit-diff-hard">Hard</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label>Champion Type</label>
+                <div class="checkbox-group tag-options">
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="edit-tag-assassin" value="Assassin">
+                    <label for="edit-tag-assassin">Assassin</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="edit-tag-fighter" value="Fighter">
+                    <label for="edit-tag-fighter">Fighter</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="edit-tag-mage" value="Mage">
+                    <label for="edit-tag-mage">Mage</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="edit-tag-adc" value="Adc">
+                    <label for="edit-tag-adc">Adc</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="edit-tag-support" value="Support">
+                    <label for="edit-tag-support">Support</label>
+                  </div>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="edit-tag-tank" value="Tank">
+                    <label for="edit-tag-tank">Tank</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="edit-champ-recommended">
+                  <input type="checkbox" id="edit-champ-recommended">
+                  Recommended Champion
+                </label>
+              </div>
+              
+              <div class="form-actions">
+                <button type="button" class="cancel-btn">CANCEL</button>
+                <button type="submit" class="submit-btn">UPDATE CHAMPION</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
       <!-- Cards Section -->
       <section class="cards-section">
