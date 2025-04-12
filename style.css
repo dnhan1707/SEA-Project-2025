@@ -14,7 +14,7 @@ body {
 /* Typography */
 h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   font-family: 'Cinzel', serif;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 
@@ -120,7 +120,7 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); 
+  background: rgba(0, 0, 0, 0.2); 
   backdrop-filter: blur(1px); 
   -webkit-backdrop-filter: blur(5px); 
   z-index: 1; 
@@ -199,6 +199,17 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   gap: 1rem;
   margin-bottom: 3rem;
   flex-wrap: wrap;
+  position: sticky;
+  top: 80px; 
+  z-index: 100;
+  background-color: rgba(10, 10, 10, 0.95);
+  padding: 1rem;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.filter-controls:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 .search-container {
@@ -220,6 +231,7 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   background-color: rgba(30, 30, 30, 0.8);
   color: #e0e0e0;
   font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 #champion-search:focus, #role-filter:focus {
@@ -227,6 +239,7 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   border-color: #c89b3c;
   box-shadow: 0 0 8px rgba(200, 155, 60, 0.5);
 }
+
 .role-filter-title {
   text-align: left;
   margin-bottom: 0.5rem;

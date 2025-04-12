@@ -95,3 +95,19 @@ export function sortHardToEasy(champions) {
     return champions;
 }
 
+
+export function searchByName(champions, query) {
+    let results = [];
+    let lowerQuery = query.toLowerCase();
+
+    for (let i = 0; i < champions.length; i++) {
+        const champName = champions[i].champName.toLowerCase();
+
+        if (champName.includes(lowerQuery)) {
+            results.push(champions[i]);
+        }
+    }
+
+    return results;
+}
+

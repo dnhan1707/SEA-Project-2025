@@ -1,5 +1,5 @@
 import { champions } from "./data.js";
-import { sortAtoZ, sortZtoA, sortEasyToHard, sortHardToEasy } from "./sorts.js";
+import { sortAtoZ, sortZtoA, sortEasyToHard, sortHardToEasy, searchByName } from "./sorts.js";
 
 // DOM Elements
 const cardContainer = document.querySelector('.card-container');
@@ -184,12 +184,28 @@ function setupSortListeners() {
 }
 
 
+function setupSearchListeners() {
+
+  searchInput.addEventListener('input', function() {
+    console.log(`User typed: ${this.value}`);
+    if(this.value == "") {
+      addCards(currentFilteredChampions);
+    } else {
+      let foundChampion = [...currentFilteredChampions];
+      foundChampion = searchByName(foundChampion, this.value);
+      addCards(foundChampion);
+    }
+  })
+
+}
+
 function init() {
   addCards(champions);
   setupDropdownToggle();
   setupSortDropdown();
   setupSortListeners();
   setupFilterListeners();
+  setupSearchListeners();
 }
 
 
