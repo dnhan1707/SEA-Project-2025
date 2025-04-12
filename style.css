@@ -14,7 +14,7 @@ body {
 /* Typography */
 h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   font-family: 'Cinzel', serif;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 1px;
 }
 
@@ -120,7 +120,7 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2); 
+  background: rgba(0, 0, 0, 0.5); 
   backdrop-filter: blur(1px); 
   -webkit-backdrop-filter: blur(5px); 
   z-index: 1; 
@@ -744,6 +744,156 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
 
 .card:hover img {
   transform: scale(1.1);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #0a0a0f;
+  margin: 5vh auto;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid #c89b3c;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(200, 155, 60, 0.3);
+  animation: modalFadeIn 0.3s;
+  overflow-x: hidden; 
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #0a0a0f, #14141f);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #c89b3c;
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+}
+
+.close-modal {
+  color: #777;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-modal:hover {
+  color: #c89b3c;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  box-sizing: border-box;
+
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  max-width: 80%; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #c0c0c0;
+  font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: rgba(30, 30, 40, 0.7);
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  border-color: #c89b3c;
+  outline: none;
+  box-shadow: 0 0 8px rgba(200, 155, 60, 0.3);
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cancel-btn, .submit-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Cinzel', serif;
+}
+
+.cancel-btn {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #c0c0c0;
+}
+
+.submit-btn {
+  background-color: #c89b3c;
+  color: #0a0a0f;
+}
+
+.cancel-btn:hover {
+  border-color: #777;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.submit-btn:hover {
+  background-color: #d8ab4c;
+}
+
+/* Checkbox and Radio styling (reusing your existing styles) */
+.modal .difficulty-options, 
+.modal .tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.modal .checkbox-item,
+.modal .radio-item {
+  flex: 0 0 auto;
 }
 
 /* ======================================Footer Section =================================*/

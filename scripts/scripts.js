@@ -8,6 +8,11 @@ const dropdownContent = document.querySelector('.dropdown-content');
 const roleCheckboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
 const sortRadios = document.querySelectorAll('.radio-item input[type="radio"]');
 const searchInput = document.querySelector('.search-container input[type="text"]');
+const addBtn = document.querySelector('.add-btn');
+const modal = document.getElementById('add-champion-modal');
+const closeModal = document.querySelector('.close-modal');
+const cancelBtn = document.querySelector('.cancel-btn');
+const addChampionForm = document.getElementById('add-champion-form');
 
 let currentFilteredChampions = [...champions]; 
 let currentSortType = 'default';
@@ -183,7 +188,6 @@ function setupSortListeners() {
   })
 }
 
-
 function setupSearchListeners() {
 
   searchInput.addEventListener('input', function() {
@@ -199,6 +203,59 @@ function setupSearchListeners() {
 
 }
 
+
+// Replace your existing setUpAddButtonListener function
+function setUpAddButtonListener() {
+  let scrollPosition;
+
+  function lockScroll() {
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = '100%';
+  }
+
+  function unlockScroll() {
+    // Remove styles from body
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    
+    // Restore scroll position
+    window.scrollTo(0, scrollPosition);
+  }
+
+  addBtn.addEventListener('click', function() {
+    console.log('Add btn clicked');
+    lockScroll();
+    modal.style.display = 'block';
+  });
+
+  closeModal.addEventListener('click', function() {
+    modal.style.display = 'none';
+    unlockScroll();
+  });
+
+  cancelBtn.addEventListener('click', function() {
+    modal.style.display = 'none';
+    unlockScroll();
+  });
+
+  window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+      unlockScroll();
+    }
+  });
+  
+  const modalContent = document.querySelector('.modal-content');
+  modalContent.addEventListener('click', function(event) {
+    event.stopPropagation();
+  });
+}
 function init() {
   addCards(champions);
   setupDropdownToggle();
@@ -206,6 +263,7 @@ function init() {
   setupSortListeners();
   setupFilterListeners();
   setupSearchListeners();
+  setUpAddButtonListener();
 }
 
 
