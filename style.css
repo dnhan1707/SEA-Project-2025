@@ -83,9 +83,6 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
   width: 100%;
 }
 
-/* Hero Section */
-/* Fix z-index layering for video background */
-/* Hero Section - Fixed Version */
 .hero-section {
   position: relative;
   height: 100vh;
@@ -216,8 +213,8 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
 
 .search-container {
   flex: 1;
-  min-width: 200px;
-  /* padding-right: 3%; */
+  max-width: 200px;
+  padding-right: 3%;
 }
 
 .filter-container {
@@ -759,6 +756,35 @@ h1, h2, h3, h4, .logo, .nav-links, .champion-title {
 .card-header p.champion-title {
   margin: 0;
 }
+
+.champion-name-edit-container{
+  display: flex;
+  gap: 3px;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  color: rgba(200, 155, 60, 0.6);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  margin-top: 2px;
+}
+
+.edit-btn:hover {
+  background-color: rgba(200, 155, 60, 0.15);
+  color: #c89b3c;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
 
 .badge {
   position: absolute;
