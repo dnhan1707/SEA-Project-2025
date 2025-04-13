@@ -21,7 +21,7 @@ function compareString(str_a, str_b) {
 }
 
 export function sortAtoZ(champions){
-    console.log("Soring A to Z")
+    // console.log("Soring A to Z")
     for(let i = 0; i < champions.length; i++) {
         for(let j = i + 1; j < champions.length; j++) {
             if(compareString(champions[i].champName, champions[j].champName) > 0) {
@@ -37,7 +37,7 @@ export function sortAtoZ(champions){
 }
 
 export function sortZtoA(champions){
-    console.log("Soring Z to A")
+    // console.log("Soring Z to A")
 
     for(let i = 0; i < champions.length; i++) {
         for(let j = i + 1; j < champions.length; j++) {

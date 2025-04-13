@@ -72,6 +72,7 @@ function addCards(championsArray){
     allCardsHtml += cardHtml;
   });
   cardContainer.innerHTML = allCardsHtml;
+  setupEditButtonHandlers();
 }
 
 function tagFilter(checkedTag) {
@@ -198,7 +199,7 @@ function setupSortListeners() {
 function setupSearchListeners() {
 
   searchInput.addEventListener('input', function() {
-    console.log(`User typed: ${this.value}`);
+    // console.log(`User typed: ${this.value}`);
     if(this.value == "") {
       addCards(currentFilteredChampions);
     } else {
@@ -210,31 +211,33 @@ function setupSearchListeners() {
 
 }
 
-function setupAddButtonListener() {
+
+function lockScroll() {
   let scrollPosition;
 
-  function lockScroll() {
-    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollPosition}px`;
-    document.body.style.width = '100%';
-  }
+  scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+  
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.style.width = '100%';
+}
 
-  function unlockScroll() {
-    // Remove styles from body
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    
-    // Restore scroll position
-    window.scrollTo(0, scrollPosition);
-  }
+function unlockScroll() {
+  let scrollPosition;
+
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  
+  window.scrollTo(0, scrollPosition);
+}
+
+function setupAddButtonListener() {
 
   addBtn.addEventListener('click', function() {
-    console.log('Add btn clicked');
+    // console.log('Add btn clicked');
     lockScroll();
     modal.style.display = 'block';
   });
@@ -264,7 +267,41 @@ function setupAddButtonListener() {
   addChampionForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const name = document.getElementById('champ-name').value;
+    let isDuplicate = false;
+    const nameInput = document.getElementById('champ-name');
+    const name = nameInput.value;
+    for(let i = 0; i < champions.length; i++) {
+      if(name.toLowerCase() == champions[i].champName.toLocaleLowerCase()) {
+        isDuplicate = true;
+        break;
+      }
+    }
+
+    if (isDuplicate) {
+      // Create a custom error message
+      let errorMsg = document.getElementById('name-error');
+      if (!errorMsg) {
+        errorMsg = document.createElement('div');
+        errorMsg.id = 'name-error';
+        errorMsg.className = 'error-message';
+        nameInput.parentNode.appendChild(errorMsg);
+      }
+      
+      // Set the message content with better styling
+      errorMsg.innerHTML = '⚠️ This champion already exists. Please choose another name.';
+      nameInput.focus();
+      
+      return;
+    } else {
+      // Clear custom error message if exists
+      const errorMsg = document.getElementById('name-error');
+      if (errorMsg) errorMsg.remove();
+      
+      // Clear validation state
+      nameInput.setCustomValidity('');
+      nameInput.classList.remove('input-error');
+    }
+
     let subtitle = document.getElementById('champ-subtitle').value;
     if(subtitle == "") {
       subtitle = "The champion"
@@ -304,22 +341,13 @@ function setupAddButtonListener() {
     modal.style.display = 'none';
     unlockScroll();
     addChampionForm.reset();
-    console.log('Champion added:', newChampion);
+    // console.log('Champion added:', newChampion);
 
   })
 }
 
-function setupEditButtonListeners() {
+function setupEditModalEvents() {
   let scrollPosition;
-
-  function lockScroll() {
-    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollPosition}px`;
-    document.body.style.width = '100%';
-  }
 
   function unlockScroll() {
     // Remove styles from body
@@ -407,7 +435,7 @@ function setupEditButtonListeners() {
       bestchoice: recommended
     };
 
-    console.log('Editted version: ', edittedChampion)
+    // console.log('Editted version: ', edittedChampion)
   
     if (id !== null && id >= 0 && id < champions.length) {
       champions[id] = edittedChampion;
@@ -421,11 +449,14 @@ function setupEditButtonListeners() {
     unlockScroll();
     editChampionForm.reset();
   })
+}
 
+function setupEditButtonHandlers() {
   const editBtn = document.querySelectorAll('.edit-btn');
   editBtn.forEach(btn => {
     btn.addEventListener('click', function(event) {
       event.stopPropagation();
+      // console.log("btn clicked")
       const champName = btn.getAttribute('data-champion');
       for (let i = 0; i < champions.length; i++) {
         if (champions[i].champName.toLowerCase() === champName.toLowerCase()) {
@@ -459,7 +490,7 @@ function setupEditButtonListeners() {
 
 function init() {
   addCards(champions);
-  setupEditButtonListeners();
+  setupEditModalEvents();
   setupDropdownToggle();
   setupSortDropdown();
   setupSortListeners();
