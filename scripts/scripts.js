@@ -33,7 +33,8 @@ function addCards(championsArray){
   }
   let allCardsHtml = '';
 
-  championsArray.forEach(champion => {
+  for(let i = championsArray.length - 1; i >= 0; i--) {
+    const champion = championsArray[i];
     let tagHtml = ''
     champion.tag.forEach(tag => {
       tagHtml += `<span class="tag">${tag}</span>`
@@ -70,7 +71,47 @@ function addCards(championsArray){
       </div>
     `;
     allCardsHtml += cardHtml;
-  });
+  }
+
+
+  // championsArray.forEach(champion => {
+  //   let tagHtml = ''
+  //   champion.tag.forEach(tag => {
+  //     tagHtml += `<span class="tag">${tag}</span>`
+  //   })
+  //   let cardHtml = `
+  //     <div class="card">
+  //       <div class="card-image">
+  //         <img src="${champion.imgUrl}" alt="${champion.champName}" />
+  //         ${champion.bestchoice ? '<span class="badge">Recommended</span>' : ''}
+  //       </div>
+  //       <div class="card-content">
+  //         <div class="card-header">
+  //           <div class="champion-name-edit-container">
+  //             <h2>${champion.champName.toUpperCase()}</h2>
+  //             <button class="edit-btn" data-champion="${champion.champName}">
+  //               <svg viewBox="0 0 24 24" width="18" height="18">
+  //                 <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/>
+  //               </svg>
+  //             </button>
+  //           </div>
+  //           <p class="champion-title">${champion.subtitle}</p>
+  //         </div>
+  //         <div class="champion-description">
+  //           ${champion.description || 'This champion stalks the battlefield looking for unsuspecting victims. With a mix of cunning and raw power, they can turn the tide of any fight.'}
+  //         </div>
+          
+  //         <div class="champion-info">
+  //           <span class="difficulty ${champion.difficulty.toLowerCase()}">${champion.difficulty}</span>
+  //           <div class="champion-tags">
+  //             ${tagHtml}
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   `;
+  //   allCardsHtml += cardHtml;
+  // });
   cardContainer.innerHTML = allCardsHtml;
   setupEditButtonHandlers();
 }
@@ -96,7 +137,7 @@ function tagFilter(checkedTag) {
     return filteredCards;
 }
 
-function applyFilter(checkedTag) {
+function applyTagFilter(checkedTag) {
   currentFilteredChampions = tagFilter(checkedTag);
 
   cardContainer.innerHTML = '';
@@ -158,7 +199,7 @@ function setupFilterListeners() {
             checkedTag.push(checkBox.value);
           }
         }
-        applyFilter(checkedTag)
+        applyTagFilter(checkedTag)
       });
   })
 }
@@ -287,17 +328,14 @@ function setupAddButtonListener() {
         nameInput.parentNode.appendChild(errorMsg);
       }
       
-      // Set the message content with better styling
       errorMsg.innerHTML = '⚠️ This champion already exists. Please choose another name.';
       nameInput.focus();
       
       return;
     } else {
-      // Clear custom error message if exists
       const errorMsg = document.getElementById('name-error');
       if (errorMsg) errorMsg.remove();
       
-      // Clear validation state
       nameInput.setCustomValidity('');
       nameInput.classList.remove('input-error');
     }
@@ -306,10 +344,28 @@ function setupAddButtonListener() {
     if(subtitle == "") {
       subtitle = "The champion"
     }
+
+    const imageUrlInput = document.getElementById('champ-img');
     let imgUrl = document.getElementById('champ-img').value;
     if(imgUrl == "") {
       imgUrl = "asset/backup.png"
     }
+    let isValidUrl = isValidImage(imgUrl);
+    if (!isValidUrl) {
+      let errorImgMsg = document.getElementById('imageurl-error');
+      if (!errorImgMsg) {
+        errorImgMsg = document.createElement('div');
+        errorImgMsg.id = 'imageurl-error';
+        errorImgMsg.className = 'error-message';
+        imageUrlInput.parentNode.appendChild(errorImgMsg);
+      }
+
+      errorImgMsg.innerHTML = '⚠️ Please use .jpg or .png image link';
+      imageUrlInput.focus();
+      
+      return;
+    }
+
     let description = document.getElementById('champ-description').value;
     if(description == "") {
       description = "A new power is born"
@@ -486,6 +542,13 @@ function setupEditButtonHandlers() {
       lockScroll();
     })
   })
+}
+
+function isValidImage(imgUrl) {
+  if(imgUrl.slice(-4) == '.png' || imgUrl.slice(-4) == '.jpg' || imgUrl.slice(-4) == '.jpeg') {
+    return true;
+  }
+  return false;
 }
 
 function init() {
