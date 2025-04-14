@@ -1,5 +1,104 @@
 export let champions = [
     {
+        champName: 'Zilean',
+        subtitle: 'The Chronokeeper',
+        tag: ['Support', 'Mage'],
+        imgUrl: 'asset/Zilean.png',
+        description: "Zilean is a time-bending mage who manipulates the flow of time. With his ability to rewind and accelerate moments, he aids his allies and confounds his enemies in an endless loop of chaos.",
+        difficulty: 'Moderate',
+        bestchoice: false
+    },
+    {
+        champName: 'Aurelion Sol',
+        subtitle: 'The Star Forger',
+        tag: ['Mage'],
+        imgUrl: 'asset/AurelionSol.png',
+        description: "Aurelion Sol is an ancient celestial being who forges stars in the cosmos. With his control over the vast power of the stars, he brings destruction and beauty in equal measure.",
+        difficulty: 'Hard',
+        bestchoice: true
+    },
+    {
+        champName: 'Camille',
+        subtitle: 'The Steel Shadow',
+        tag: ['Fighter', 'Assassin'],
+        imgUrl: 'asset/Camille.png',
+        description: "Camille is a deadly assassin with a pair of razor-sharp blades attached to her legs. Her mechanical precision and relentless pursuit of her targets make her a fearsome opponent in any confrontation.",
+        difficulty: 'Hard',
+        bestchoice: true
+    },
+    {
+        champName: 'Sivir',
+        subtitle: 'The Battle Mistress',
+        tag: ['Marksman', 'Fighter'],
+        imgUrl: 'asset/Sivir.png',
+        description: "Sivir is a renowned warrior and tactician who leads her forces into battle with unmatched skill. Her boomerang blade and keen sense of strategy make her a deadly force on the battlefield.",
+        difficulty: 'Moderate',
+        bestchoice: false
+    },
+    {
+        champName: 'Sejuani',
+        subtitle: "The Winter's Wrath",
+        tag: ['Tank', 'Fighter'],
+        imgUrl: 'asset/Sejuani.png',
+        description: "Sejuani is a fearsome warrior from the Freljord, who rides her massive war boar and uses ice to strike down her enemies. As a relentless leader, she seeks to protect her tribe at all costs.",
+        difficulty: 'Moderate',
+        bestchoice: true
+    },
+    {
+        champName: 'Nasus',
+        subtitle: 'The Curator of the Sands',
+        tag: ['Fighter', 'Tank'],
+        imgUrl: 'asset/Nasus.png',
+        description: "Nasus is an ancient being who has lived for millennia, using his immense strength and wisdom to protect his homeland. With his divine power, he seeks to preserve the balance of the universe and prevent chaos.",
+        difficulty: 'Moderate',
+        bestchoice: true
+    },
+    {
+        champName: 'Blitzcrank',
+        subtitle: 'The Great Steam Golem',
+        tag: ['Tank', 'Support'],
+        imgUrl: 'asset/Blitzcrank.png',
+        description: "Blitzcrank is a giant mechanical golem, known for his powerful robotic arms and his ability to grab and pull enemies into his grasp. With a heart of gold, he fights to protect those in need.",
+        difficulty: 'Easy',
+        bestchoice: true
+    },
+    {
+        champName: 'Teemo',
+        subtitle: 'The Swift Scout',
+        tag: ['Marksman', 'Assassin'],
+        imgUrl: 'asset/Teemo.png',
+        description: "Teemo is a fast and elusive scout who uses his speed and deadly traps to overwhelm his enemies. He might be small, but his explosive mushrooms and stealthy attacks make him a threat on any battlefield.",
+        difficulty: 'Moderate',
+        bestchoice: false
+    },
+    {
+        champName: 'Morgana',
+        subtitle: 'The Fallen Angel',
+        tag: ['Mage', 'Support'],
+        imgUrl: 'asset/Morgana.png',
+        description: "Morgana, once a member of the righteous Targon, now fights to protect the helpless in her own way. With her devastating dark magic and protective shield, she seeks to save others while tormenting her enemies.",
+        difficulty: 'Moderate',
+        bestchoice: true
+    },
+    {
+        champName: 'Rengar',
+        subtitle: 'The Pridestalker',
+        tag: ['Assassin', 'Fighter'],
+        imgUrl: 'asset/Rengar.png',
+        description: "Rengar is a fearsome hunter who stalks his prey in the wilds of the Freljord. With his stealth and agility, he can leap into battle and surprise even the most prepared foes with his deadly strikes.",
+        difficulty: 'Hard',
+        bestchoice: true
+    },
+    {
+        champName: 'Syndra',
+        subtitle: 'The Dark Sovereign',
+        tag: ['Mage'],
+        imgUrl: 'asset/Syndra.png',
+        description: "Syndra wields the power of dark energy to unleash devastating forces. She controls orbs of magic to strike down her enemies and challenge anyone who dares to oppose her incredible power.",
+        difficulty: 'Hard',
+        bestchoice: true
+    },    
+    {
         champName: 'Talon',
         subtitle: "The Blade's Shadow",
         tag: ['Assassin'],
